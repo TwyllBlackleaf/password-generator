@@ -53,6 +53,77 @@ var generatePassword = function () {
 
     console.log(length);
     console.log(parameters);
+
+    // Make an array of only the character types that were selected
+    var chosenTypes = [];
+    if (parameters.lowerCase) {
+        chosenTypes.push("lowerCase");
+    }
+    if (parameters.upperCase) {
+        chosenTypes.push("upperCase");
+    }
+    if (parameters.numeric) {
+        chosenTypes.push("numeric");
+    }
+    if (parameters.special) {
+        chosenTypes.push("special");
+    }
+
+    console.log(chosenTypes);
+
+    // Function for determining which type of character to generate for an individual character
+    var characterType = function() {
+        var type = chosenTypes[Math.floor(Math.random() * chosenTypes.length)];
+        return type;
+    }
+
+    // Function for randomly selecting a special character in Unicode, except for " and \
+    var makeSpecialCharacter = function() {
+        var selection = Math.floor(Math.random() * 31);
+        var specialCharacter = "";
+        if (selection < 2) {
+            specialCharacter = String.fromCharCode(32 + selection);
+        } else if (selection < 15) {
+            specialCharacter = String.fromCharCode(33 + selection);
+        } else if (selection < 22) {
+            specialCharacter = String.fromCharCode(43 + selection);
+        } else if (selection === 22) {
+            specialCharacter = String.fromCharCode(69 + selection);
+        } else if (selection < 27) {
+            specialCharacter = String.fromCharCode(70 + selection)
+        } else if (selection < 31) {
+            specialCharacter = String.fromCharCode(96 + selection);
+        }
+        return specialCharacter;
+    }
+
+    // Main function to generate password
+    var password = function() {
+        var word = "";
+        var newCharacter = ""
+        for (var i = 0; i < length; i++) {
+            switch (characterType()) {
+                case "lowerCase": 
+                    newCharacter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+                    break;
+                case "upperCase":
+                    newCharacter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                    break;
+                case "numeric":
+                    newCharacter = Math.floor(Math.random() * 10);
+                    break;
+                case "special":
+                    newCharacter = makeSpecialCharacter();
+                    break;
+            }
+            console.log(newCharacter);
+            word += newCharacter;
+        }
+        console.log(word);
+        return word;
+
+    }
+    password();
 }
 
 // Get references to the #generate element
