@@ -51,9 +51,6 @@ var generatePassword = function () {
         parameters = getParameters();
     }
 
-    console.log(length);
-    console.log(parameters);
-
     // Make an array of only the character types that were selected
     var chosenTypes = [];
     if (parameters.lowerCase) {
@@ -68,8 +65,6 @@ var generatePassword = function () {
     if (parameters.special) {
         chosenTypes.push("special");
     }
-
-    console.log(chosenTypes);
 
     // Function for determining which type of character to generate for an individual character
     var characterType = function() {
@@ -116,14 +111,12 @@ var generatePassword = function () {
                     newCharacter = makeSpecialCharacter();
                     break;
             }
-            console.log(newCharacter);
             word += newCharacter;
         }
-        console.log(word);
         return word;
 
     }
-    password();
+    return password();
 }
 
 // Get references to the #generate element
