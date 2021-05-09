@@ -66,7 +66,7 @@ var generatePassword = function () {
         chosenTypes.push("special");
     }
 
-    // Function for determining which type of character to generate for an individual character
+    // Function for picking randomly from the array which type of character to generate
     var characterType = function() {
         var type = chosenTypes[Math.floor(Math.random() * chosenTypes.length)];
         return type;
@@ -95,7 +95,7 @@ var generatePassword = function () {
     // Main function to generate password
     var password = function() {
         var word = "";
-        var newCharacter = ""
+        var newCharacter = "";
         for (var i = 0; i < length; i++) {
             switch (characterType()) {
                 case "lowerCase": 
@@ -114,7 +114,6 @@ var generatePassword = function () {
             word += newCharacter;
         }
         return word;
-
     }
     return password();
 }
@@ -128,7 +127,6 @@ function writePassword() {
     var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
-
 }
 
 // Add event listener to generate button
