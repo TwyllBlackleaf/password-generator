@@ -96,23 +96,41 @@ var generatePassword = function () {
     var password = function() {
         var word = "";
         var newCharacter = "";
+        
+        // variables for final check to make sure that each selected type was used at least once
+        var usedlowerCase = false;
+        var usedUpperCase = false;
+        var usedNumeric = false;
+        var usedSpecial = false;
+
+        // Loop to build the password 
         for (var i = 0; i < length; i++) {
             switch (characterType()) {
                 case "lowerCase": 
                     newCharacter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+                    usedlowerCase = true;
                     break;
                 case "upperCase":
                     newCharacter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                    usedUpperCase = true;
                     break;
                 case "numeric":
                     newCharacter = Math.floor(Math.random() * 10);
+                    usedNumeric = true;
                     break;
                 case "special":
                     newCharacter = makeSpecialCharacter();
+                    usedSpecial = true;
                     break;
             }
             word += newCharacter;
         }
+
+        // Check that every selected type of character was used at least once; if not, redo the process until all are used.
+        while (usedlowerCase + usedUpperCase + usedNumeric + usedSpecial < chosenTypes.length) {
+            return password();
+        }
+
         return word;
     }
     return password();
